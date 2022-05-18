@@ -1,0 +1,10 @@
+
+# Visual Studio files
+# -------------------
+*.sln
+*.vcxproj*
+/.vs
+
+# Build path
+/bin
+/bin-int

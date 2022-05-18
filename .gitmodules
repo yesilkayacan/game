@@ -1,0 +1,3 @@
+[submodule "Game/dependencies/GLM"]
+	path = Game/dependencies/GLM
+	url = https://github.com/yesilkayacan/glm.git
