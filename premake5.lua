@@ -1,11 +1,11 @@
 
 IncludeDir = {}
-IncludeDir["GLFW"] = "%{wks.location}/Game/dependencies/glfw/include"
-IncludeDir["Glad"] = "%{wks.location}/Game/dependencies/GLAD/include"
+IncludeDir["GLFW"] = "%{wks.location}/Game/dependencies/GLFW/include"
+IncludeDir["GLAD"] = "%{wks.location}/Game/dependencies/GLAD/include"
 IncludeDir["GLM"] = "%{wks.location}/Game/dependencies/GLM"
 
 LibraryDir = {}
-LibraryDir["GLFW"] = "%{wks.location}/Game/dependencies/glfw/lib-vc2022"
+LibraryDir["GLFW"] = "%{wks.location}/Game/dependencies/GLFW/lib-vc2022"
 
 workspace "Game"
 	architecture "x86_64"
