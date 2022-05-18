@@ -22,7 +22,9 @@ project "Game"
 
     links
 	{
-        "{LibraryDir.GLFW}"
+        "%{LibraryDir.GLFW}/glfw3_mt.lib",
+		"opengl32.lib",
+        "Glad"
 	}
 
     filter "configurations:Debug"
