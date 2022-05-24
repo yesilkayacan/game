@@ -1,0 +1,9 @@
+1 - Create GLFW window
+2 - Logging
+3 - Handle first events
+	window close
+	mouse position
+	key press
+4 - Create basic application
+5 - Display basic graphics
+6 - Implement initial camera
