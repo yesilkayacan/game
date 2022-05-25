@@ -17,6 +17,8 @@ namespace Engine
 
 	void window::Create()
 	{
+		std::cout << "Creating GLFW window" << std::endl;
+
 		// glfw: initialize and configure
 		// ------------------------------
 		if (!glfwInit())

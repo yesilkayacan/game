@@ -15,6 +15,7 @@ project "Game"
 
     includedirs
 	{
+        "%{prj.location}/src",
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.GLAD}",
         "%{IncludeDir.GLM}"
