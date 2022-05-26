@@ -7,6 +7,9 @@ project "Game"
     targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
+    pchheader "epch.h"
+	pchsource "src/epch.cpp"
+
     files
 	{
 		"src/**.h",

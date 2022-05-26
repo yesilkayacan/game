@@ -1,6 +1,5 @@
+#include "epch.h"
 #include "Application.h"
-
-#include <iostream>
 
 #include "glad/glad.h"
 
