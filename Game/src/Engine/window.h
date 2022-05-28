@@ -1,7 +1,11 @@
 #pragma once
 
+#include "Events/Event.h"
+
 #include "GLFW/glfw3.h"
+
 #include <string>
+#include <functional>
 
 namespace Engine
 {
@@ -19,28 +23,43 @@ namespace Engine
 		}
 	};
 
-	class window
+	class Window
 	{
 	public:
-		window(const std::string& title = "Engine",
+		using EventCallbackFn = std::function<void(Event&)>;
+
+	public:
+		Window(const std::string& title = "Engine",
 			uint32_t width = 1600,
 			uint32_t height = 900);
-		~window();
+		~Window();
 
 		void OnUpdate();
 
-		uint32_t GetWidth() { return m_width; }
-		uint32_t GetHeight() { return m_height; }
+		// Window attributes
+		void SetEventCallback(const EventCallbackFn& callback) { m_WindowData.EventCallback = callback; }
+		uint32_t GetWidth() { return m_WindowProp.Width; }
+		uint32_t GetHeight() { return m_WindowProp.Height; }
 
 	private:
 		GLFWwindow* m_window;
-		std::string m_title;
-		uint32_t m_width;
-		uint32_t m_height;
+		WindowProps m_WindowProp;
+		
+		struct WindowData
+		{
+			std::string Title;
+			unsigned int Width, Height;
+			bool VSync;
+
+			EventCallbackFn EventCallback;
+		};
+
+		WindowData m_WindowData;
 
 	private:
 		void Create();
 		void Shutdown();
+		void SetCallbacks();
 		
 	};
 }

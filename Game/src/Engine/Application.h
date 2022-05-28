@@ -1,6 +1,9 @@
 #pragma once
 
 #include "window.h"
+#include "Engine/Events/Event.h"
+
+#include "Engine/Events/ApplicationEvents.h"
 
 namespace Engine
 {
@@ -8,11 +11,16 @@ namespace Engine
 	{
 	public:
 		Application();
-		~Application();
+		virtual ~Application();
+
+		void OnEvent(Event& e);
 
 		void Run();
 	private:
-		window* m_window;
+		Window* m_window;
+		bool m_running;
 		
+	private:
+		void OnWindowClose(WindowCloseEvent& e);
 	};
 }
