@@ -21,7 +21,8 @@ project "Game"
         "%{prj.location}/src",
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.GLAD}",
-        "%{IncludeDir.GLM}"
+        "%{IncludeDir.GLM}",
+        "%{IncludeDir.spdlog}"
     }
 
     links

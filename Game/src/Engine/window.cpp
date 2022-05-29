@@ -23,13 +23,13 @@ namespace Engine
 		m_WindowData.Width = m_WindowProp.Width;
 		m_WindowData.Height = m_WindowProp.Height;
 
-		std::cout << "Creating GLFW window" << std::endl;
+		ENGINE_INFO("Creating GLFW window");
 
 		// glfw: initialize and configure
 		// ------------------------------
 		if (!glfwInit())
 		{
-			std::cout << "GLFW faild to initialize!" << std::endl;
+			ENGINE_ERROR("GLFW faild to initialize!");
 		}
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);

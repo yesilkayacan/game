@@ -8,20 +8,19 @@ namespace Engine
 	Application::Application()
 		:m_running(true)
 	{
-		std::cout << "Initializing the Engine" << std::endl;
+		Log::Init();
+		ENGINE_INFO("Initializing the Engine");
 
 		m_window = new Window();
-		//m_window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
+
 		m_window->SetEventCallback(BIND_EVENT_FN(&Application::OnEvent));
 	}
 
 
 	void Application::OnEvent(Event& e)
 	{
-		std::cout << e.ToString() << std::endl;
+		ENGINE_INFO("Event: {0}", e.ToString());
 
-		// TODO
-		// Process the events where necessary
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(&Application::OnWindowClose));
 	}
@@ -33,7 +32,7 @@ namespace Engine
 		// ---------------------------------------
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 		{
-			std::cout << "Failed to initialize GLAD" << std::endl;
+			ENGINE_ERROR("Failed to initialize GLAD!");
 		}
 
 		// render loop
