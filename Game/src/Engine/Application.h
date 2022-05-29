@@ -21,6 +21,6 @@ namespace Engine
 		bool m_running;
 		
 	private:
-		void OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowClose(WindowCloseEvent& e);
 	};
 }

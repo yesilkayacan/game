@@ -11,7 +11,8 @@ namespace Engine
 		std::cout << "Initializing the Engine" << std::endl;
 
 		m_window = new Window();
-		m_window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
+		//m_window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
+		m_window->SetEventCallback(BIND_EVENT_FN(&Application::OnEvent));
 	}
 
 
@@ -19,6 +20,10 @@ namespace Engine
 	{
 		std::cout << e.ToString() << std::endl;
 
+		// TODO
+		// Process the events where necessary
+		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(&Application::OnWindowClose));
 	}
 
 
@@ -50,9 +55,10 @@ namespace Engine
 	}
 
 
-	void Application::OnWindowClose(WindowCloseEvent& e)
+	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
 		m_running = false;
+		return true;
 	}
 
 }
