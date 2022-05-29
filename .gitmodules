@@ -1,3 +1,6 @@
 [submodule "Game/dependencies/GLM"]
 	path = Game/dependencies/GLM
 	url = https://github.com/yesilkayacan/glm.git
+[submodule "Game/dependencies/spdlog"]
+	path = Game/dependencies/spdlog
+	url = https://github.com/yesilkayacan/spdlog.git
