@@ -6,7 +6,7 @@
 namespace Engine
 {
 	Application::Application()
-		:m_running(true)
+		:m_running(true), m_app(this)
 	{
 		Log::Init();
 		ENGINE_INFO("Initializing the Engine");
@@ -23,6 +23,9 @@ namespace Engine
 
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(&Application::OnWindowClose));
+
+		if (!e.Handled)
+			m_app->HandleEvent(e);
 	}
 
 

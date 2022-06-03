@@ -2,7 +2,7 @@
 #include "window.h"
 
 #include "Engine/Events/ApplicationEvents.h"
-
+#include "Engine/Events/KeyEvents.h"
 
 namespace Engine
 {
@@ -37,26 +37,67 @@ namespace Engine
 
 		m_window = glfwCreateWindow((int)m_WindowData.Width, (int)m_WindowData.Height, m_WindowData.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_window);
-
-		SetCallbacks();
+		
+		// pass data to glfw
+		glfwSetWindowUserPointer(m_window, &m_WindowData);
+		SetApplicationEventCallbacks();
+		SetKeyEventCallbacks();
 
 		// enable VSync
 		glfwSwapInterval(1);
 	}
 
-	void Window::SetCallbacks()
+	void Window::SetApplicationEventCallbacks()
 	{
-		// pass data to glfw
-		glfwSetWindowUserPointer(m_window, &m_WindowData);
-
-		// set event callbacks
+		// set application event callbacks
 		glfwSetWindowCloseCallback(m_window, [](GLFWwindow* window)
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+				WindowCloseEvent event;
+				data.EventCallback(event);
+			});
+	}
+
+
+	void Window::SetKeyEventCallbacks()
+	{
+		// set key event callbacks
+		glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-			WindowCloseEvent event;
-			data.EventCallback(event);
+
+			switch (action)
+			{
+				case GLFW_PRESS:
+				{
+					KeyPressedEvent event(key, 0);
+					data.EventCallback(event);
+					break;
+				}
+				case GLFW_RELEASE:
+				{
+					KeyReleasedEvent event(key);
+					data.EventCallback(event);
+					break;
+				}
+				case GLFW_REPEAT:
+				{
+					KeyPressedEvent event(key, 1);
+					data.EventCallback(event);
+					break;
+				}
+			}
 		});
+
+		//glfwSetCharCallback(m_window, [](GLFWwindow* window, unsigned int keycode)
+		//{
+		//	WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+		//	KeyTypedEvent event(keycode);
+		//	data.EventCallback(event);
+		//});
 	}
+
 
 	void Window::Shutdown()
 	{

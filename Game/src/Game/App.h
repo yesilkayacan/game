@@ -9,5 +9,8 @@ namespace App
 	public:
 		App() = default;
 		~App() = default;
+
+	private:
+		virtual bool HandleEvent(Engine::Event & e) override;
 	};
 }

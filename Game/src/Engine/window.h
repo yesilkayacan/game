@@ -59,7 +59,8 @@ namespace Engine
 	private:
 		void Create();
 		void Shutdown();
-		void SetCallbacks();
+		void SetApplicationEventCallbacks();
+		void SetKeyEventCallbacks();
 		
 	};
 }

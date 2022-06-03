@@ -1,14 +1,18 @@
 1 - Create GLFW window
 	done
 2 - Logging
-3 - Handle first events
+	done
+3 - Asset importing
+4 - Handle first events
 	window close
 		implemented
 	mouse position
 	key press
-4 - Create basic application
-5 - Display basic graphics
-6 - Implement initial camera
+		in progress
+5 - Create basic application
+	done
+6 - Display basic graphics
+7 - Implement initial camera
 
 // TODO Notes
 Event System
