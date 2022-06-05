@@ -4,14 +4,20 @@
 	done
 3 - Asset importing
 4 - Handle first events
-	window close
+	- window close
 		implemented
-	mouse position
-	key press
-		in progress
+	- mouse position
+		
+	- key press
+		implemented
 5 - Create basic application
 	done
 6 - Display basic graphics
+	- Vetex Buffer
+		in progress
+	- Index Buffer
+		in progress
+	- Vertex Array
 7 - Implement initial camera
 
 // TODO Notes

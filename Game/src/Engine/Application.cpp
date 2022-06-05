@@ -1,7 +1,8 @@
 #include "epch.h"
 #include "Application.h"
 
-#include "glad/glad.h"
+#include "graphics/Renderer.h"
+#include "graphics/RenderCommand.h"
 
 namespace Engine
 {
@@ -14,8 +15,10 @@ namespace Engine
 		m_window = new Window();
 
 		m_window->SetEventCallback(BIND_EVENT_FN(&Application::OnEvent));
-	}
 
+		Renderer::Init();
+		RenderCommand::SetViewport(m_window->GetWidth(), m_window->GetHeight());
+	}
 
 	void Application::OnEvent(Event& e)
 	{
@@ -28,22 +31,16 @@ namespace Engine
 			m_app->HandleEvent(e);
 	}
 
-
 	void Application::Run()
 	{
-		// glad: load all OpenGL function pointers
-		// ---------------------------------------
-		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-		{
-			ENGINE_ERROR("Failed to initialize GLAD!");
-		}
-
 		// render loop
 		// -----------
 		while (m_running)
 		{
-			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT);
+			RenderCommand::SetClearColor({ 0.2f, 0.3f, 0.3f, 0.1f});
+			RenderCommand::Clear();
+
+			m_app->OnApplicationUpdate();
 
 			m_window->OnUpdate();
 		}
@@ -55,7 +52,6 @@ namespace Engine
 	{
 		delete m_window;
 	}
-
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{

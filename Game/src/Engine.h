@@ -8,3 +8,8 @@
 #include "Engine/Events/ApplicationEvents.h"
 
 #include "Engine/Log.h"
+
+#include "Engine/graphics/Shader.h"
+#include "Engine/graphics/Renderer.h"
+#include "Engine/graphics/RenderCommand.h"
+#include "Engine/graphics/OpenGLVertexArray.h"
