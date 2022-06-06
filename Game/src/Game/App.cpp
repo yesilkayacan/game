@@ -48,15 +48,13 @@ namespace App
 
 		glGenVertexArrays(1, &m_VertexArray);
 
-		unsigned int VBO, EBO;
-		glGenBuffers(1, &VBO);
+		unsigned int EBO;
 		glGenBuffers(1, &EBO);
 
 		// bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
 		glBindVertexArray(m_VertexArray);
 
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		m_VertexBuffer = Engine::VertexBuffer::Create(vertices, sizeof(vertices));
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
@@ -100,21 +98,6 @@ namespace App
 		//uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
 		//std::shared_ptr<OpenGLIndexBuffer> squareIB = OpenGLIndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
 		//m_SquareVA->SetIndexBuffer(squareIB);
-
-		// set up vertex data (and buffer(s)) and configure vertex attributes
-		// ------------------------------------------------------------------
-		//float vertices[] = {
-		//	 0.5f,  0.5f, 0.0f,  // top right
-		//	 0.5f, -0.5f, 0.0f,  // bottom right
-		//	-0.5f, -0.5f, 0.0f,  // bottom left
-		//	-0.5f,  0.5f, 0.0f   // top left 
-		//};
-		//unsigned int indices[] = {  // note that we start from 0!
-		//	0, 1, 3,  // first Triangle
-		//	1, 2, 3   // second Triangle
-		//};
-		//
-		
 
 		m_Shader = Engine::Shader::Create(vertexSrc, fragmentSrc);
 	}

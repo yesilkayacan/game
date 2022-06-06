@@ -9,7 +9,8 @@
 
 #include "Engine/Log.h"
 
-#include "Engine/graphics/Shader.h"
-#include "Engine/graphics/Renderer.h"
-#include "Engine/graphics/RenderCommand.h"
-#include "Engine/graphics/OpenGLVertexArray.h"
+#include "Engine/Graphics/Shader.h"
+#include "Engine/Graphics/Renderer.h"
+#include "Engine/Graphics/RenderCommand.h"
+#include "Engine/Graphics/VertexBuffer.h"
+//#include "Engine/Graphics/OpenGLVertexArray.h"
