@@ -48,16 +48,17 @@ namespace App
 
 		glGenVertexArrays(1, &m_VertexArray);
 
-		unsigned int EBO;
-		glGenBuffers(1, &EBO);
+		//unsigned int EBO;
+		//glGenBuffers(1, &EBO);
 
 		// bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
 		glBindVertexArray(m_VertexArray);
 
 		m_VertexBuffer = Engine::VertexBuffer::Create(vertices, sizeof(vertices));
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+		m_IndexBuffer = Engine::IndexBuffer::Create(indices, sizeof(indices));
 
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)0);
 		glEnableVertexAttribArray(0);

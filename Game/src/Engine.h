@@ -12,5 +12,7 @@
 #include "Engine/Graphics/Shader.h"
 #include "Engine/Graphics/Renderer.h"
 #include "Engine/Graphics/RenderCommand.h"
+
 #include "Engine/Graphics/VertexBuffer.h"
+#include "Engine/Graphics/IndexBuffer.h"
 //#include "Engine/Graphics/OpenGLVertexArray.h"
