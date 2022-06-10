@@ -47,23 +47,23 @@ namespace App
 		uint32_t indices[3] = { 0, 1, 2 };
 
 		glGenVertexArrays(1, &m_VertexArray);
-
-		//unsigned int EBO;
-		//glGenBuffers(1, &EBO);
-
-		// bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
 		glBindVertexArray(m_VertexArray);
-
+		// bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
+		
 		m_VertexBuffer = Engine::VertexBuffer::Create(vertices, sizeof(vertices));
-
-		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 		m_IndexBuffer = Engine::IndexBuffer::Create(indices, sizeof(indices));
 
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)0);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)0);
-		glEnableVertexAttribArray(1);
+		Engine::BufferLayout layout = Engine::BufferLayout(
+			{ 
+				{ "a_pos", Engine::ShaderDataType::Float, 3 },
+				{ "a_calor", Engine::ShaderDataType::Float, 4 } 
+			}
+		);
+		layout.DefineLayout();
+		//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)0);
+		//glEnableVertexAttribArray(0);
+		//glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)0);
+		//glEnableVertexAttribArray(1);
 		
 
 
