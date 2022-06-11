@@ -39,27 +39,25 @@ namespace App
 		//m_VertexArray = Engine::OpenGLVertexArray::Create();
 
 		float vertices[3 * 7] = {
-			-1.0f, -1.0f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
+			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
 			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
 			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
 
 		uint32_t indices[3] = { 0, 1, 2 };
 
-		glGenVertexArrays(1, &m_VertexArray);
-		glBindVertexArray(m_VertexArray);
-		// bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
-		
-		m_VertexBuffer = Engine::VertexBuffer::Create(vertices, sizeof(vertices));
-		m_IndexBuffer = Engine::IndexBuffer::Create(indices, sizeof(indices));
-
-		Engine::BufferLayout layout = Engine::BufferLayout(
+		m_VertexArray = Engine::VertexArray::Create();
+		std::shared_ptr<Engine::VertexBuffer> m_VertexBuffer = Engine::VertexBuffer::Create(vertices, sizeof(vertices));
+		std::shared_ptr<Engine::IndexBuffer> m_IndexBuffer = Engine::IndexBuffer::Create(indices, sizeof(indices));
+		std::shared_ptr<Engine::BufferLayout> layout = std::make_shared<Engine::BufferLayout>(Engine::BufferLayout(
 			{ 
 				{ "a_Position", Engine::ShaderDataType::Float, 3 },
 				{ "a_Color", Engine::ShaderDataType::Float, 4 } 
 			}
-		);
-		layout.DefineLayout();
+		));
+		m_VertexArray->AddVertexBuffer(m_VertexBuffer, layout);
+		m_VertexArray->SetIndexBuffer(m_IndexBuffer);
+
 		
 
 		float squareVertices[7 * 4] = {
@@ -74,20 +72,17 @@ namespace App
 			2, 3, 0 
 		};
 
-		glGenVertexArrays(1, &m_SquareVertexArray);
-		glBindVertexArray(m_SquareVertexArray);
-		
-		m_SquareVertexBuffer = Engine::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
-		m_SquareIndexBuffer = Engine::IndexBuffer::Create(squareIndices, sizeof(squareIndices));
-
-		Engine::BufferLayout Squarelayout = Engine::BufferLayout(
+		m_SquareVertexArray = Engine::VertexArray::Create();
+		m_VertexBuffer = Engine::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
+		m_IndexBuffer = Engine::IndexBuffer::Create(squareIndices, sizeof(squareIndices));
+		layout = std::make_shared<Engine::BufferLayout>(Engine::BufferLayout(
 			{
-				{ "a_Pos", Engine::ShaderDataType::Float, 3 },
-				{ "a_Col", Engine::ShaderDataType::Float, 4 }
+				{ "a_Position", Engine::ShaderDataType::Float, 3 },
+				{ "a_Color", Engine::ShaderDataType::Float, 4 }
 			}
-		);
-		Squarelayout.DefineLayout();
-
+		));
+		m_SquareVertexArray->AddVertexBuffer(m_VertexBuffer, layout);
+		m_SquareVertexArray->SetIndexBuffer(m_IndexBuffer);
 
 		m_Shader = Engine::Shader::Create(vertexSrc, fragmentSrc);
 	}
@@ -104,11 +99,12 @@ namespace App
 
 		m_Shader->Bind();
 
-		glBindVertexArray(m_SquareVertexArray);
+		m_SquareVertexArray->Bind();
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 		//glBindVertexArray(m_VertexArray);
-		//glDrawArrays(GL_TRIANGLES, 0, 3);
+		m_VertexArray->Bind();
+		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 
 		
 	}

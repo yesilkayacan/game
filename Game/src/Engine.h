@@ -16,4 +16,4 @@
 #include "Engine/Graphics/VertexBuffer.h"
 #include "Engine/Graphics/IndexBuffer.h"
 #include "Engine/Graphics/BufferLayout.h"
-//#include "Engine/Graphics/OpenGLVertexArray.h"
+#include "Engine/Graphics/VertexArray.h"
