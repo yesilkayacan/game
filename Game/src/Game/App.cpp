@@ -8,12 +8,12 @@ const std::string vertexSrc = R"(
 			
 			layout(location = 0) in vec3 a_Position;
 			layout(location = 1) in vec4 a_Color;
-			out vec3 v_Position;
-			out vec4 v_Color;
+
+			out vec4 vertexColor;			
+
 			void main()
 			{
-				v_Position = a_Position;
-				v_Color = a_Color;
+				vertexColor = a_Color;
 				gl_Position = vec4(a_Position, 1.0);	
 			}
 		)";
@@ -21,13 +21,13 @@ const std::string vertexSrc = R"(
 const std::string fragmentSrc = R"(
 			#version 330 core
 			
-			layout(location = 0) out vec4 color;
-			in vec3 v_Position;
-			in vec4 v_Color;
+			in vec4 vertexColor;
+
+			out vec4 FragColor;
+
 			void main()
 			{
-				color = vec4(v_Position * 0.5 + 0.5, 1.0);
-				color = v_Color;
+				FragColor = vertexColor;
 			}
 		)";
 
@@ -39,7 +39,7 @@ namespace App
 		//m_VertexArray = Engine::OpenGLVertexArray::Create();
 
 		float vertices[3 * 7] = {
-			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
+			-1.0f, -1.0f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
 			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
 			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
@@ -55,50 +55,39 @@ namespace App
 
 		Engine::BufferLayout layout = Engine::BufferLayout(
 			{ 
-				{ "a_pos", Engine::ShaderDataType::Float, 3 },
-				{ "a_calor", Engine::ShaderDataType::Float, 4 } 
+				{ "a_Position", Engine::ShaderDataType::Float, 3 },
+				{ "a_Color", Engine::ShaderDataType::Float, 4 } 
 			}
 		);
 		layout.DefineLayout();
-		//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)0);
-		//glEnableVertexAttribArray(0);
-		//glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)0);
-		//glEnableVertexAttribArray(1);
 		
 
+		float squareVertices[7 * 4] = {
+			 0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+			-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+			-0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f
+		};
 
+		uint32_t squareIndices[6] = {
+			0, 1, 2,
+			2, 3, 0 
+		};
 
-		//std::shared_ptr<Engine::OpenGLVertexBuffer> vertexBuffer = Engine::OpenGLVertexBuffer::Create(vertices, sizeof(vertices));
-		//Engine::BufferLayout layout = {
-		//	{ Engine::ShaderDataType::Float3, "a_Position" },
-		//	{ Engine::ShaderDataType::Float4, "a_Color" }
-		//};
-		//vertexBuffer->SetLayout(layout);
-		//m_VertexArray->AddVertexBuffer(vertexBuffer);
+		glGenVertexArrays(1, &m_SquareVertexArray);
+		glBindVertexArray(m_SquareVertexArray);
+		
+		m_SquareVertexBuffer = Engine::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
+		m_SquareIndexBuffer = Engine::IndexBuffer::Create(squareIndices, sizeof(squareIndices));
 
-		//
-		//std::shared_ptr<Engine::OpenGLIndexBuffer> indexBuffer = Engine::OpenGLIndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
-		//m_VertexArray->SetIndexBuffer(indexBuffer);
+		Engine::BufferLayout Squarelayout = Engine::BufferLayout(
+			{
+				{ "a_Pos", Engine::ShaderDataType::Float, 3 },
+				{ "a_Col", Engine::ShaderDataType::Float, 4 }
+			}
+		);
+		Squarelayout.DefineLayout();
 
-		//// Draw Square
-		//m_SquareVA = OpenGLVertexArray::Create();
-
-		//float squareVertices[5 * 4] = {
-		//	-0.5f, -0.5f, 0.0f,
-		//	 0.5f, -0.5f, 0.0f,
-		//	 0.5f,  0.5f, 0.0f,
-		//	-0.5f,  0.5f, 0.0f
-		//};
-
-		//std::shared_ptr<OpenGLVertexBuffer> squareVB = OpenGLVertexBuffer::Create(squareVertices, sizeof(squareVertices));
-		//squareVB->SetLayout({
-		//	{ ShaderDataType::Float3, "a_Position" }
-		//	});
-		//m_SquareVA->AddVertexBuffer(squareVB);
-
-		//uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		//std::shared_ptr<OpenGLIndexBuffer> squareIB = OpenGLIndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
-		//m_SquareVA->SetIndexBuffer(squareIB);
 
 		m_Shader = Engine::Shader::Create(vertexSrc, fragmentSrc);
 	}
@@ -113,11 +102,14 @@ namespace App
 	{
 		Engine::Renderer::BeginScene();
 
-		//Engine::Renderer::Submit(m_SquareVA);
 		m_Shader->Bind();
-		glBindVertexArray(m_VertexArray);
-		//Engine::Renderer::Submit(m_VertexArray);
 
-		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(m_SquareVertexArray);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+		//glBindVertexArray(m_VertexArray);
+		//glDrawArrays(GL_TRIANGLES, 0, 3);
+
+		
 	}
 }

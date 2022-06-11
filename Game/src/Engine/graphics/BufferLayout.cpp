@@ -11,12 +11,14 @@ namespace Engine
 	void BufferLayout::DefineLayout()
 	{
 		uint8_t layoutIndex = 0;
+		size_t offset = 0;
 
 		for (auto& element : m_Elements)
 		{
-			glVertexAttribPointer(layoutIndex, element.Amount, element.ShaderDataTypeToOpenGLBaseType(), element.Normalized, m_Stride, (void*)0);
+			glVertexAttribPointer(layoutIndex, element.Amount, element.ShaderDataTypeToOpenGLBaseType(), element.Normalized, m_Stride, (void*)offset);
 			glEnableVertexAttribArray(layoutIndex);
 			layoutIndex ++;
+			offset += element.Size;
 		}
 	}
 

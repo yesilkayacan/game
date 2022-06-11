@@ -13,8 +13,11 @@ namespace App
 	private:
 		//std::shared_ptr<Engine::OpenGLVertexArray> m_VertexArray;
 		uint32_t m_VertexArray;
+		uint32_t m_SquareVertexArray;
 		std::shared_ptr<Engine::VertexBuffer> m_VertexBuffer;
 		std::shared_ptr<Engine::IndexBuffer> m_IndexBuffer;
+		std::shared_ptr<Engine::VertexBuffer> m_SquareVertexBuffer;
+		std::shared_ptr<Engine::IndexBuffer> m_SquareIndexBuffer;
 		std::shared_ptr<Engine::Shader> m_Shader;
 
 	private:
