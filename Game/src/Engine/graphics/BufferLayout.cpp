@@ -15,7 +15,7 @@ namespace Engine
 
 		for (auto& element : m_Elements)
 		{
-			glVertexAttribPointer(layoutIndex, element.Amount, element.ShaderDataTypeToOpenGLBaseType(), element.Normalized, m_Stride, (void*)offset);
+			glVertexAttribPointer(layoutIndex, element.Amount, Engine::ShaderDataTypeToOpenGLBaseType(element.Type), element.Normalized, m_Stride, (void*)offset);
 			glEnableVertexAttribArray(layoutIndex);
 			layoutIndex ++;
 			offset += element.Size;
@@ -33,29 +33,6 @@ namespace Engine
 	BufferElement::BufferElement(std::string name, ShaderDataType type, uint8_t amount)
 		:Name(name), Type(type), Amount(amount)
 	{
-		Size = Amount * ShaderDataTypeSize();
-	}
-
-	uint32_t BufferElement::ShaderDataTypeSize()
-	{
-		switch (Type)
-		{
-		case ShaderDataType::Float:    return sizeof(float);
-		case ShaderDataType::Int:      return sizeof(int);
-		case ShaderDataType::Bool:     return sizeof(bool);
-		}
-
-		return 0;
-	}
-
-	GLenum BufferElement::ShaderDataTypeToOpenGLBaseType()
-	{
-		switch (Type)
-		{
-		case ShaderDataType::Float:    return GL_FLOAT;
-		case ShaderDataType::Int:      return GL_INT;
-		case ShaderDataType::Bool:     return GL_BOOL;
-		}
-		return 0;
+		Size = Amount * Engine::ShaderDataTypeSize(Type);
 	}
 }

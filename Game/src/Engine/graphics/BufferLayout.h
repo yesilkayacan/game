@@ -1,14 +1,10 @@
 #pragma once
 
 #include "glad/glad.h"
+#include "Buffer.h"
 
 namespace Engine
 {
-	enum class ShaderDataType
-	{
-		None = 0, Float, Int, Bool
-	};
-
 	class BufferElement
 	{
 	public:
@@ -20,10 +16,6 @@ namespace Engine
 
 	public:
 		BufferElement(std::string name, ShaderDataType type, uint8_t amount);
-
-		uint32_t ShaderDataTypeSize();
-
-		GLenum ShaderDataTypeToOpenGLBaseType();
 	};
 
 	class BufferLayout
