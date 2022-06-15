@@ -22,6 +22,8 @@ namespace Engine
 		void AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer, std::shared_ptr<BufferLayout>& layout);
 		void SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer);
 
+		std::shared_ptr<IndexBuffer> GetIndexBuffer() { return m_IndexBuffer; };
+
 	private:
 		uint32_t m_VertexArrayID;
 		std::shared_ptr<IndexBuffer> m_IndexBuffer;

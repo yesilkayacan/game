@@ -35,8 +35,6 @@ namespace App
 {
 	App::App()
 	{
-		// Draw triangle
-		//m_VertexArray = Engine::OpenGLVertexArray::Create();
 
 		float vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
@@ -98,13 +96,9 @@ namespace App
 		Engine::Renderer::BeginScene();
 
 		m_Shader->Bind();
+		Engine::RenderCommand::DrawIndexed(m_SquareVertexArray);
 
-		m_SquareVertexArray->Bind();
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-		//glBindVertexArray(m_VertexArray);
-		m_VertexArray->Bind();
-		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+		Engine::RenderCommand::DrawIndexed(m_VertexArray);
 
 		
 	}
