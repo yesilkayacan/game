@@ -1,12 +1,12 @@
 #include "epch.h"
-#include "RenderCommand.h"
+#include "RendererAPI.h"
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
 namespace Engine 
 {
-	void RenderCommand::Init()
+	void RendererAPI::Init()
 	{
 		// glad: load all OpenGL function pointers
 		// ---------------------------------------
@@ -25,32 +25,32 @@ namespace Engine
 		//glEnable(GL_DEPTH_TEST);
 	}
 
-	void RenderCommand::Shutdown()
+	void RendererAPI::Shutdown()
 	{
 
 	}
 
-	void RenderCommand::SetViewport(uint32_t width, uint32_t height)
+	void RendererAPI::SetViewport(uint32_t width, uint32_t height)
 	{
 		glViewport(0, 0, width, height);
 	}
 
-	void RenderCommand::SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
+	void RendererAPI::SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
 	{
 		glViewport(x, y, width, height);
 	}
 	
-	void RenderCommand::SetClearColor(const glm::vec4& color)
+	void RendererAPI::SetClearColor(const glm::vec4& color)
 	{
 		glClearColor(color.r, color.g, color.b, color.a);
 	}
 
-	void RenderCommand::Clear()
+	void RendererAPI::Clear()
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
-	void RenderCommand::DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray, uint32_t indexCount)
+	void RendererAPI::DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray, uint32_t indexCount)
 	{
 		vertexArray->Bind();
 		uint32_t count = indexCount ? indexCount : vertexArray->GetIndexBuffer()->GetCount();

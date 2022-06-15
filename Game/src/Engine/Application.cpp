@@ -2,7 +2,7 @@
 #include "Application.h"
 
 #include "graphics/Renderer.h"
-#include "graphics/RenderCommand.h"
+#include "graphics/RendererAPI.h"
 
 namespace Engine
 {
@@ -17,7 +17,7 @@ namespace Engine
 		m_window->SetEventCallback(BIND_EVENT_FN(&Application::OnEvent));
 
 		Renderer::Init();
-		RenderCommand::SetViewport(m_window->GetWidth(), m_window->GetHeight());
+		RendererAPI::SetViewport(m_window->GetWidth(), m_window->GetHeight());
 	}
 
 	void Application::OnEvent(Event& e)
@@ -37,8 +37,8 @@ namespace Engine
 		// -----------
 		while (m_running)
 		{
-			RenderCommand::SetClearColor({ 0.2f, 0.3f, 0.3f, 0.1f});
-			RenderCommand::Clear();
+			RendererAPI::SetClearColor({ 0.2f, 0.3f, 0.3f, 0.1f});
+			RendererAPI::Clear();
 
 			m_app->OnApplicationUpdate();
 

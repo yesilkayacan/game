@@ -4,13 +4,13 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
-#include "RenderCommand.h"
+#include "RendererAPI.h"
 
 namespace Engine
 {
 	void Renderer::Init()
 	{
-		RenderCommand::Init();
+		RendererAPI::Init();
 	}
 
 	void Renderer::Shutdown()

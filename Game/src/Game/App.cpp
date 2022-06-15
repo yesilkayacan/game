@@ -96,9 +96,9 @@ namespace App
 		Engine::Renderer::BeginScene();
 
 		m_Shader->Bind();
-		Engine::RenderCommand::DrawIndexed(m_SquareVertexArray);
+		Engine::RendererAPI::DrawIndexed(m_SquareVertexArray);
 
-		Engine::RenderCommand::DrawIndexed(m_VertexArray);
+		Engine::RendererAPI::DrawIndexed(m_VertexArray);
 
 		
 	}

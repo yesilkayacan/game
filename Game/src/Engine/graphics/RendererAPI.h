@@ -7,7 +7,7 @@ namespace Engine
 {
 	// Low level controls of the renderer
 	// currently using OPENGL
-	class RenderCommand
+	class RendererAPI
 	{
 	public:
 		static void Init();
