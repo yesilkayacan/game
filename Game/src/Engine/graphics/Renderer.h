@@ -1,6 +1,8 @@
 #pragma once
 
 #include "VertexArray.h"
+#include "Shader.h"
+
 #include "glm/glm.hpp"
 
 namespace Engine
@@ -14,7 +16,8 @@ namespace Engine
 		static void BeginScene();
 		static void EndScene();
 
-		//static void Submit(const std::shared_ptr<OpenGLVertexArray>& vertexArray);
+		static void OnWindowResize(uint32_t width, uint32_t height);
+		static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray);
 
 	private:
 		struct SceneData

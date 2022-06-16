@@ -10,6 +10,8 @@ namespace Engine
 	class RendererAPI
 	{
 	public:
+		virtual ~RendererAPI() = default;
+
 		static void Init();
 		static void Shutdown();
 

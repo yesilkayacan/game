@@ -1,9 +1,6 @@
 #include "epch.h"
 #include "Renderer.h"
 
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
-
 #include "RendererAPI.h"
 
 namespace Engine
@@ -15,23 +12,27 @@ namespace Engine
 
 	void Renderer::Shutdown()
 	{
-
+		RendererAPI::Shutdown();
 	}
 
 	void Renderer::BeginScene()
 	{
-
+		// Todo
+		// initialize the camera
 	}
 
-	//void Renderer::Submit(const std::shared_ptr<OpenGLVertexArray>& vertexArray)
-	//{
-	//	//shader->Bind();
-	//	//shader->SetMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
-	//	//shader->SetMat4("u_Transform", transform);
+	void Renderer::OnWindowResize(uint32_t width, uint32_t height)
+	{
+		RendererAPI::SetViewport(width, height);
+	}
 
-	//	//vertexArray->Bind();
-	//	//RenderCommand::DrawIndexed(vertexArray);
-	//}
+	void Renderer::Submit(const std::shared_ptr<Shader>& shader,
+		const std::shared_ptr<VertexArray>& vertexArray)
+	{
+		shader->Bind();
+
+		RendererAPI::DrawIndexed(vertexArray);
+	}
 
 	void Renderer::EndScene()
 	{
