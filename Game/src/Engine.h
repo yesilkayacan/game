@@ -17,3 +17,5 @@
 #include "Engine/Graphics/IndexBuffer.h"
 #include "Engine/Graphics/BufferLayout.h"
 #include "Engine/Graphics/VertexArray.h"
+
+#include "Engine/Camera/Camera.h"

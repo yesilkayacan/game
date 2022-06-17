@@ -15,6 +15,8 @@ namespace App
 		std::shared_ptr<Engine::VertexArray> m_VertexArray;
 		std::shared_ptr<Engine::Shader> m_Shader;
 
+		std::shared_ptr<Engine::Camera> m_MainCamera;
+
 	private:
 		virtual bool HandleEvent(Engine::Event & e) override;
 

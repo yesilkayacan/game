@@ -83,6 +83,8 @@ namespace App
 		m_SquareVertexArray->SetIndexBuffer(m_IndexBuffer);
 
 		m_Shader = Engine::Shader::Create(vertexSrc, fragmentSrc);
+
+		m_MainCamera = Engine::Camera::Create();
 	}
 
 	bool App::HandleEvent(Engine::Event& e)
