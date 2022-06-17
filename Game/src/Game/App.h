@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Engine.h"
+#include "BasicDrawing.h"
 
 namespace App
 {
@@ -11,10 +12,8 @@ namespace App
 		~App() = default;
 
 	private:
-		std::shared_ptr<Engine::VertexArray> m_SquareVertexArray;
-		std::shared_ptr<Engine::VertexArray> m_VertexArray;
-		std::shared_ptr<Engine::Shader> m_Shader;
-
+		BasicDrawing m_Drawing;
+		
 		std::shared_ptr<Engine::Camera> m_MainCamera;
 
 	private:
